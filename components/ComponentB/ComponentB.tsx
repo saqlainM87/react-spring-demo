@@ -27,6 +27,7 @@ const ComponentB = () => {
             >
                 <h1 className="text-xl">useSprings()</h1>
             </Button>
+
             <div className="flex flex-col space-y-6 justify-start items-center overflow-auto">
                 {springs.map((styles, index) => (
                     <animated.div key={index} className="w-1/2" style={styles}>
