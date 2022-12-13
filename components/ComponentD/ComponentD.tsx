@@ -1,21 +1,18 @@
 import { Button, Card } from 'flowbite-react';
 import React, { useState } from 'react';
-import { animated, useSprings } from 'react-spring';
+import { animated, useTrail } from 'react-spring';
 
-const items = [{ opacity: 0.25 }, { opacity: 0.5 }, { opacity: 0.7 }];
+const items = [1, 2, 3];
 
-const ComponentB = () => {
+const ComponentD = () => {
     const [toggle, setToggle] = useState(false);
 
-    const springs = useSprings(
-        items.length,
-        items.map((item) => ({
-            opacity: toggle ? item.opacity : 0,
-            config: {
-                duration: 2000,
-            },
-        }))
-    );
+    const trails = useTrail(items.length, {
+        opacity: toggle ? 1 : 0,
+        config: {
+            duration: 2000,
+        },
+    });
 
     return (
         <>
@@ -25,10 +22,11 @@ const ComponentB = () => {
                     setToggle((prevState) => !prevState);
                 }}
             >
-                <h1 className="text-xl">useSprings()</h1>
+                <h1 className="text-xl">useTrail()</h1>
             </Button>
+
             <div className="flex flex-col space-y-6 justify-start items-center overflow-auto">
-                {springs.map((styles, index) => (
+                {trails.map((styles, index) => (
                     <animated.div key={index} className="w-1/2" style={styles}>
                         <Card href="#">
                             <h5 className="text-2xl font-bold tracking-tight text-gray-900 dark:text-white">
@@ -49,4 +47,4 @@ const ComponentB = () => {
     );
 };
 
-export default ComponentB;
+export default ComponentD;
