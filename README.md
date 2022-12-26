@@ -1,34 +1,122 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# React Spring Demo
 
-## Getting Started
+## _A spring-physics first animation library giving you flexible tools to confidently cast your ideas_
 
-First, run the development server:
+**React Spring** is a spring-physics based animation library that powers most UI related animation in React. It is a bridge on the two existing React animation libraries; React Motion and Animated. Given the performance considerations of animation libraries, React Spring is the best of both worlds. It inherits animated powerful interpolations and performance while maintaining react-motion’s ease of use.
 
-```bash
-npm run dev
-# or
-yarn dev
+### Features
+
+-   It’s not just for web. It also support - native, three, konva, zdog
+-   Run animations without re-rendering
+-   Production ready with SSR support
+-   Usable with any component library
+
+### Common APIs
+
+Here are some common APIs from `react-spring`:
+
+🪝 `useSpring()` - This is the flagship hook. Applicable to most use-cases.
+
+```ts
+const heightSpringStyles = useSpring({
+height: toggle ? '600px' : '0px',
+config: {
+        duration: 1000,
+        },
+        ref: heightSpringRef,
+});
+
+// Usage
+<animated.div style={heightSpringStyles}>
+    {...}
+</animated.div>
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+🪝 `useSpringRef()` - This hook is used to attach reference to other API.
 
-You can start editing the page by modifying `pages/index.tsx`. The page auto-updates as you edit the file.
+```ts
+const overlaySpringRef = useSpringRef();
+const overlaySpringStyles = useSpring({
+    opacity: toggle ? 1 : 0,
+    config: {
+        duration: 2000,
+    },
+    ref: overlaySpringRef,
+});
+```
 
-[API routes](https://nextjs.org/docs/api-routes/introduction) can be accessed on [http://localhost:3000/api/hello](http://localhost:3000/api/hello). This endpoint can be edited in `pages/api/hello.ts`.
+🪝 `useChain()` - It is used to orchestrate animation hooks in sequence with one another. This is best used when you specifically want to orchestrate different types of animation hook.
 
-The `pages/api` directory is mapped to `/api/*`. Files in this directory are treated as [API routes](https://nextjs.org/docs/api-routes/introduction) instead of React pages.
+```ts
+useChain(
+    toggle
+        ? [heightSpringRef, overlaySpringRef]
+        : [overlaySpringRef, heightSpringRef],
+    toggle ? [0, 1] : [0, 2] //in seconds
+);
+```
 
-## Learn More
+🪝 `useTransition()` - This hook is best suited for animating in & out datasets or items you don't particularly want to be left in the DOM, e.g. a dialog.
 
-To learn more about Next.js, take a look at the following resources:
+```ts
+ const listTransitions = useTransition([...], {
+        config: config.slow,
+        from: { opacity: 0, transform: 'translate3d(100%,0,0)' },
+        enter: { opacity: 1, transform: 'translate3d(0%,0,0)' },
+        leave: { opacity: 0, transform: 'translate3d(-50%,0,0)' },
+        keys: list.map((item) => item),
+    });
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+// Usage
+listTransitions((styles, item) => {
+    // return element
+})
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
+```
 
-## Deploy on Vercel
+🪝 `useTrail()` - It has an identical API signature to useSprings the difference is the hook automatically orchestrates the springs to stagger one after the other.
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+```ts
+const items = [1, 2, 3];
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+const trails = useTrail(items.length, {
+    opacity: toggle ? 1 : 0,
+    config: {
+        duration: 2000,
+    },
+});
+
+// Usage
+trails.map((styles, index) => {
+    // return element
+});
+```
+
+🪝 `useSprings()` - If you want to orchestrate multiple springs with a unified API, this is probably the best hook for you.
+
+```ts
+const items = [{ opacity: 0.25 }, { opacity: 0.5 }, { opacity: 0.7 }];
+
+const springs = useSprings(
+    items.length,
+    items.map((item) => ({
+        opacity: toggle ? item.opacity : 0,
+        config: {
+            duration: 2000,
+        },
+    }))
+);
+
+// Usage
+springs.map((styles, index) => {
+    // return element
+});
+```
+
+### Resources
+
+1. https://blog.logrocket.com/animations-with-react-spring/
+2. https://dev.to/vaibhavkhulbe/spring-it-on-a-complete-guide-to-react-spring-1om9
+3. https://shakuro.com/blog/react-spring-tutorial-making-animated-react-apps
+4. https://www.copycat.dev/blog/react-spring/
+5. https://react-spring.dev/docs
