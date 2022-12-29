@@ -2,11 +2,11 @@
 
 ## _A spring-physics first animation library giving you flexible tools to confidently cast your ideas_
 
-**React Spring** is a spring-physics based animation library that powers most UI related animation in React. It is a bridge on the two existing React animation libraries; React Motion and Animated. Given the performance considerations of animation libraries, React Spring is the best of both worlds. It inherits animated powerful interpolations and performance while maintaining react-motion’s ease of use.
+**React Spring** is a spring-physics ([details](https://medium.com/kaliberinteractive/how-i-transitioned-from-ease-to-spring-animations-5a09eeca0325)) based animation library that powers most UI related animation in React. It is a bridge on the two existing React animation libraries; React Motion and Animated. Given the performance considerations of animation libraries, React Spring is the best of both worlds. It inherits animated powerful interpolations and performance while maintaining react-motion’s ease of use.
 
 ### Features
 
--   It’s not just for web. It also support - native, three, konva, zdog
+-   It’s not just for web. It also support - react-native, three, konva, zdog
 -   Run animations without re-rendering
 -   Production ready with SSR support
 -   Usable with any component library
@@ -120,3 +120,4 @@ springs.map((styles, index) => {
 3. https://shakuro.com/blog/react-spring-tutorial-making-animated-react-apps
 4. https://www.copycat.dev/blog/react-spring/
 5. https://react-spring.dev/docs
+6. https://medium.com/kaliberinteractive/how-i-transitioned-from-ease-to-spring-animations-5a09eeca0325

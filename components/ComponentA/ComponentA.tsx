@@ -39,7 +39,7 @@ const ComponentA = () => {
                     setToggle((prevState) => !prevState);
                 }}
             >
-                <h1 className="text-xl">useSpring()</h1>
+                <h1 className="text-xl">useSpring() with useChain()</h1>
             </Button>
             <animated.div
                 className="flex flex-col space-y-6 justify-start items-center overflow-auto"
